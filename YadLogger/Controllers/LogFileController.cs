@@ -9,7 +9,7 @@ using YadLogger.Models;
 namespace YadLogger.Controllers
 {
     /// <summary>
-    /// Controls data flow over log files. (Read, Write, Move, Delete, Copy)
+    /// Controls data flow over log files on disk memory. (Read, Write, Move, Delete, Copy)
     /// </summary>
     class LogFileController
     {
@@ -71,6 +71,58 @@ namespace YadLogger.Controllers
             {
                 Console.WriteLine("An error occured: " + e.Message);
             }
+        }
+
+        /// <summary>
+        /// Copy a logFile to a destination.
+        /// </summary>
+        /// <param name="logFile"></param>
+        /// <param name="destinationPath"></param>
+        /// <returns></returns>
+        public static LogFileModel Copy(LogFileModel logFile, string destinationPath)
+        {
+            try
+            {
+                File.Copy(logFile.Path, destinationPath);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occured: " + e.Message);
+            }
+
+            var newLogFile = new LogFileModel(destinationPath);
+            logFile.AddUpdate("Copied", "Copied this to " + destinationPath);
+            return newLogFile;
+        }
+
+        /// <summary>
+        /// Deletes a logfile.
+        /// </summary>
+        /// <param name="logFile"></param>
+        public static void Delete(LogFileModel logFile)
+        {
+            try
+            {
+                File.Delete(logFile.Path);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("An error occured: " + e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Moves a logfile. (Copies it and then deletes the original)
+        /// </summary>
+        /// <param name="logFile"></param>
+        /// <param name="destinationPath"></param>
+        /// <returns></returns>
+        public static LogFileModel Move(LogFileModel logFile, string destinationPath)
+        {
+            var movedFile = Copy(logFile, destinationPath);
+            Delete(logFile);
+            return movedFile;
         }
     }
 }

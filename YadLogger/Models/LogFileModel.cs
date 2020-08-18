@@ -44,7 +44,7 @@ namespace YadLogger.Models
         /// <param name="title">Update title</param>
         /// <param name="info">Update info</param>
         /// <param name="time">Update time. Is set to DateTime.Now if passed as null.</param>
-        public void AddUpdate(string title, string info, DateTime? time)
+        public void AddUpdate(string title, string info, DateTime? time = null)
         {
             time = time != null ? time.Value : DateTime.Now;
             Updates.Add(new KeyValuePair<string, string>(title, info), time.Value);
