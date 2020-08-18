@@ -13,7 +13,8 @@ namespace YadLogger.Models
         public string Name { get; private set; }
 
         public readonly LogFileModel logFile;
-        private List<LogDataModel> logs;
+
+        public readonly List<LogDataModel> logs;
 
         public LogStream(string name, string path)
         {

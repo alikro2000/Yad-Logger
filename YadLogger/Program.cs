@@ -9,7 +9,19 @@ namespace YadLogger
     {
         static void Main(string[] args)
         {
+            YadLogger.Init();
+            try
+            {
 
+            }
+            catch
+            {
+                YadLogger.CreateLogStream("LogStream01", "D:\\my-projects\\YadLogger\\YadLogger\\Logs\\log01.log");
+                YadLogger.CreateLogStream("LogStream02", "D:\\my-projects\\YadLogger\\YadLogger\\Logs\\log02.log");
+                YadLogger.CreateLogStream("LogStream03", "D:\\my-projects\\YadLogger\\YadLogger\\Logs\\log03.log");
+            }
+
+            YadLogger.Log("New log! :D");
         }
     }
 }

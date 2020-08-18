@@ -57,6 +57,11 @@ namespace YadLogger.Controllers
         /// <param name="append">Appends to the file, if it exists.</param>
         public static void Write(LogFileModel logFile, List<LogDataModel> logs, bool append = true)
         {
+            if (!File.Exists(logFile.Path))
+            {
+                Directory.CreateDirectory(Directory.GetParent(logFile.Path).Parent.FullName);
+            }
+
             try
             {
                 using (var writer = append ? File.AppendText(logFile.Path) : File.CreateText(logFile.Path))

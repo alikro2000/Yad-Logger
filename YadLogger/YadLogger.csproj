@@ -6,8 +6,4 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Logs\" />
-  </ItemGroup>
-
 </Project>
