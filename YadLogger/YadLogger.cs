@@ -9,6 +9,9 @@ using YadLogger.Models;
 
 namespace YadLogger
 {
+    /// <summary>
+    /// Contains all you need to interact with YadLogger.
+    /// </summary>
     public class YadLogger
     {
         /// <summary>
@@ -42,6 +45,8 @@ namespace YadLogger
         /// </summary>
         /// <param name="name">Stream's name, this will show up as the origin.</param>
         /// <param name="path">The location which the logs will be stored at.</param>
+        /// <remarks>LogStreams with the same path are not allowed.</remarks>
+        /// <exception>Throws an exception if a LogStream with the same path already exists.</exception>
         public static void CreateLogStream(string name, string path)
         {
             if (allStreams.SingleOrDefault(s => s.Name.Equals(name)) != null)
