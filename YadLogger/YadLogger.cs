@@ -64,21 +64,13 @@ namespace YadLogger
         /// <param name="time"></param>
         public static void Log(string text)
         {
-            //defaultStream.AddLog(text);
-            //runningUpdates.Add(new Task(() =>
-            //{
-            //LogFileController.Write(defaultStream.logFile, defaultStream.logs);
-            //}));
-            //runningUpdates[runningUpdates.Count - 1].RunSynchronously();
-            //runningUpdates.RemoveAt(runningUpdates.Count - 1);
-
-            Action newLog = () =>
-            {
-                LogFileController.Write(defaultStream.logFile, defaultStream.logs);
-            };
-            var task = new Task(newLog);
+            defaultStream.AddLog(text);
+            Task task = new Task(() =>
+                           {
+                               LogFileController.Write(defaultStream.logFile, defaultStream.logs);
+                           });
             runningUpdates.Add(task);
-            newLog.Invoke();
+            task.RunSynchronously();
             runningUpdates.Remove(task);
         }
 
@@ -99,6 +91,12 @@ namespace YadLogger
             runningUpdates.RemoveAt(runningUpdates.Count - 1);
         }
 
+        /// <summary>
+        /// Logs to a stream of choice asynchronously.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        /// <remarks>(Still under test)</remarks>
         public static async Task LogAsync(string text)
         {
             Action newLog = () =>
