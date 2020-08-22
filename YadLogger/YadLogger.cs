@@ -79,9 +79,15 @@ namespace YadLogger
         /// </summary>
         /// <param name="streamName"></param>
         /// <param name="text"></param>
+        /// <exception>Throws an exception if a LogStream with the specified name is not running.</exception>
         public static void LogTo(string streamName, string text)
         {
             var stream = allStreams.SingleOrDefault(s => s.Name.Equals(streamName));
+            if (stream == null)
+            {
+                throw new Exception($"Cannot find the LogStream with the specified name \'{streamName}\'.");
+            }
+
             stream?.AddLog(text);
             runningUpdates.Add(new Task(() =>
             {
@@ -107,6 +113,39 @@ namespace YadLogger
             runningUpdates.Add(task);
             await Task.Run(newLog);
             runningUpdates.Remove(task);
+        }
+
+        /// <summary>
+        /// Sets default stream to another.
+        /// </summary>
+        /// <param name="streamName"></param>
+        /// <remarks>You need to have your stream of choice previously created.</remarks>
+        public static void SetDefaultStream(string streamName)
+        {
+            var stream = allStreams.SingleOrDefault(s => s.Name.Equals(streamName));
+            if (stream != null)
+            {
+                defaultStream = stream;
+            }
+        }
+
+        /// <summary>
+        /// The default stream will be reset to a file located at C:\\YadLogger\\default.log
+        /// </summary>
+        public static void ResetDefaultStream()
+        {
+            defaultStream = allStreams.Single(s => s.Name.Equals("DefaultStream"));
+        }
+
+        /// <summary>
+        /// Deletes and stops tracking a stream.
+        /// </summary>
+        /// <param name="streamName"></param>
+        /// <remarks>The 'DefaultStream' stream cannot be deleted.</remarks>
+        public static void DeleteStream(string streamName)
+        {
+            var stream = allStreams.SingleOrDefault(s => s.Name.Equals(streamName) && !s.Name.Equals("DefaultStream"));
+            allStreams.Remove(stream);
         }
     }
 }

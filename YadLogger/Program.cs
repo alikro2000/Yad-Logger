@@ -21,6 +21,15 @@ namespace YadLogger
             {
             }
 
+            YadLogger.SetDefaultStream("LogStream02");
+            YadLogger.ResetDefaultStream();
+            YadLogger.DeleteStream("LogStream03");
+            try
+            {
+                YadLogger.LogTo("LogStream03", "yo");
+            }
+            catch { }
+
             var watch = System.Diagnostics.Stopwatch.StartNew();
 
             YadLogger.Log("New log! :D");
