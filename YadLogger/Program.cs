@@ -11,6 +11,7 @@ namespace YadLogger
         static async Task Main(string[] args)
         {
             YadLogger.Init();
+            //YadLogger.Init("D:\\my-projects\\YadLogger\\YadLogger\\Logs\\file.log");
             try
             {
                 YadLogger.CreateLogStream("LogStream01", "D:\\my-projects\\YadLogger\\YadLogger\\Logs\\log01.log");

@@ -29,11 +29,11 @@ namespace YadLogger
         /// <summary>
         /// Initializes the logger with a default stream "DefaultStream" at C:\YadLogger\default.log
         /// </summary>
-        public static void Init()
+        public static void Init(string defaultStremPath = "C:\\YadLogger\\default.log")
         {
             allStreams = new List<LogStream>();
             runningUpdates = new List<Task>();
-            defaultStream = new LogStream("DefaultStream", "C:\\YadLogger\\default.log");
+            defaultStream = new LogStream("DefaultStream", defaultStremPath);
             allStreams.Add(defaultStream);
         }
 
