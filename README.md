@@ -1,7 +1,16 @@
 # Yad-Logger
 
-Yad Logger is a simple logging tool for C# applications.
+## Description
+YadLogger is a simple logging tool for C# applications.
 
-# Install
+README map:
+  -- stuff
 
+## Requirements
+- [dotnet Core 3.1](https://github.com/dotnet/core)
 
+## Installation & Setup
+
+## How to use
+
+## Examples
