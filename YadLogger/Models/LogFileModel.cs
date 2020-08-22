@@ -7,7 +7,7 @@ namespace YadLogger.Models
     /// <summary>
     /// Data Model for Files containing logs.
     /// </summary>
-    public class LogFileModel
+    class LogFileModel
     {
         /// <summary>
         /// Path to the logs file.
